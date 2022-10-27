@@ -1,40 +1,47 @@
-#include <iostream> 
+#include<iostream>
 using namespace std; 
 class CRC 
 { 
+
 public: 
-int nf, ng, frame[20], gen[10], temp[20], b; 
-char a;
-int* divide(int n, int g, int temp[10], int gen[10]) { 
-for(int i=0; i<n; i++) 
+	int nf, ng, frame[20], gen[10], temp[20], b; 
+	char a;
+	int* divide(int n, int g, int temp[10], int gen[10]) { 
+  for(int i=0; i<n; i++) 
 { 
-if(gen[0]==temp[i]) 
+
+	if(gen[0]==temp[i]) 
 { 
-for(int j=0, k=i; j<g+1; j++, k++) 
+	for(int j=0, k=i; j<g+1; j++, k++) 
 { 
-if(temp[k]^gen[j]==1) 
+	if(temp[k]^gen[j]==1) 
 temp[k]=1; 
 else 
 temp[k]=0; 
+
+} 
+
 } 
 } 
-} 
-return temp; 
+	return temp; 
 } 
 void input() 
+
 { 
-cout<<"Enter length of your frame:"; 
-cin>>nf; 
-cout<<"Enter your frame:"; 
-for(int i=0; i<nf; i++)
+	cout<<"Enter length of your frame:"; 
+	cin>>nf; 
+	cout<<"Enter your frame:"; 
+	for(int i=0; i<nf; i++)
 { 
+
 cin>>frame[i]; 
-temp[i]=frame[i]; 
+  temp[i]=frame[i]; 
 } 
-cout<<"Enter length of your generator:"; cin>>ng; 
-cout<<"Enter your generator:"; 
-for(int i=0; i<ng; i++) 
+	cout<<"Enter length of your generator:"; cin>>ng; 
+	cout<<"Enter your generator:"; 
+	for(int i=0; i<ng; i++) 
 { 
+
 cin>>gen[i]; 
 } 
 ng--; 
@@ -60,35 +67,40 @@ cout<<endl;
 } 
 int receiver_side() 
 { 
-int* receiver; 
-cout<<"\n-----Receivers Side-----\n"<<"Received message:"; 
+	int* receiver; 
+	cout<<"\n-----Receivers Side-----\n"<<"Received message:"; 
 for(int i=0; i<nf+ng; i++) 
-cout<<frame[i]<<' '; 
-cout<<endl; 
-cout<<"Enter which bit you want to change(from 0-"<<nf+ng<<")-";
-cin>>b; 
+	cout<<frame[i]<<' '; 
+	cout<<endl; 
+	cout<<"Enter which bit you want to change(from 0-"<<nf+ng<<")-";
+ cin>>b; 
 if(frame[b]==1) 
+
 frame[b]=0; 
+
 else 
+
 frame[b]=1; 
-receiver = divide(nf,ng,frame,gen); 
-cout<<"Error:"; 
-for(int i=0; i<nf+ng; i++) 
+	receiver = divide(nf,ng,frame,gen); 
+  cout<<"Error:"; 
+	for(int i=0; i<nf+ng; i++) 
 { 
-if(receiver[i]!=0) 
+	if(receiver[i]!=0) 
 { 
 cout<<"Error Detected!!"<<endl; 
-return 0; 
+	return 0; 
 } 
 } 
 cout<<"No error detected!"<<endl; 
+
 } 
 }; 
 int main() 
 { 
 CRC o;
-o.input(); 
-o.sender_side(); 
-o.receiver_side(); 
+	o.input(); 
+	o.sender_side(); 
+	o.receiver_side(); 
+
 return 0; 
 }
